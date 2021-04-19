@@ -8,10 +8,8 @@ function iniciar() {
 
 function dondeClick(event) {
 
-    if (event.target.className == "asiento") {
-        if (event.target.className == "asiento.ocupado") {
-            
-        }
+    if (event.target.class == "asiento") {
+        event.target.class += ".seleccionado";
     }
     console.log(event.target);
 }
