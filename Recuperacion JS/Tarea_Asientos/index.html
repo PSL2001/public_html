@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas de Asientos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="pelicula-contenedor">
+        <label>Elige una película:</label>
+        <select id="pelicula">
+            <option value="10">Los vengadores (10€)</option>
+            <option value="12">Joker (12€)</option>
+            <option value="8">Toy Story (6€)</option>
+            <option value="9">El rey león (7€)</option>
+        </select>
+        <ul class="mostrador">
+            <li>
+                <div class="asiento"></div>
+                <small>Libre</small>
+            </li>
+            <li>
+                <div class="asiento seleccionado"></div>
+                <small>Seleccionado</small>
+            </li>
+            <li>
+                <div class="asiento ocupado"></div>
+                <small>Ocupado</small>
+            </li>
+        </ul>
+        <div class="contenedor">
+            <div class="pantalla"></div>
+            <div class="fila">
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+            </div>
+            <div class="fila">
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+            </div>
+            <div class="fila">
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+            </div>
+            <div class="fila">
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento ocupado"></div>
+                <div class="asiento ocupado"></div>
+                <div class="asiento ocupado"></div>
+                <div class="asiento ocupado"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+            </div>
+            <div class="fila">
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+            </div>
+            <div class="fila">
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+                <div class="asiento"></div>
+            </div>
+        </div>
+    </div>
+
+    <p class="texto">Has seleccionado <span id="numero">0</span> asientos por un precio total de <span id="total">0</span> euros.</p>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+<!-- 
+    const asientos = document.querySelectorAll(".fila .asiento:not(.ocupado)");
+    let asientosSeleccionados = document.querySelectorAll(".fila .asiento.seleccionado"); 
+-->

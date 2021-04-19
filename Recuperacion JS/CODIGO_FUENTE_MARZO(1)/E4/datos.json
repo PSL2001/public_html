@@ -1,0 +1,5 @@
+{
+    "pastelitos" : [{ "nombre" : "Pastel de unicornio" , "precio" :"5", "src" : "img/pastel_arcoiris.jpg"},
+        { "nombre" : "Pastel de lazos" , "precio" :"6" ,"src" : "img/pastel_flores.jpg"},
+        { "nombre" : "Pastel de arcoiris" , "precio" :"7", "src" : "img/pastel_unicornio.jpg"}]
+}
