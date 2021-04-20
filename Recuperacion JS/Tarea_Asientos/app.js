@@ -4,7 +4,6 @@ const pelicula = document.getElementById("pelicula");
 const contenedor = document.getElementsByClassName("contenedor")[0];
 
 function iniciar() {
-    lectura();
     document.getElementsByClassName("contenedor")[0].addEventListener("click", dondeClick);
     pelicula.addEventListener('change', calcularPrecio);
 }
