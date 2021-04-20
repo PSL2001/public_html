@@ -1,27 +1,26 @@
 window.onload = iniciar;
-
 const SELECTED = "seleccionado";
 const pelicula = document.getElementById("pelicula");
 const contenedor = document.getElementsByClassName("contenedor")[0];
 
-
 function iniciar() {
     lectura();
     document.getElementsByClassName("contenedor")[0].addEventListener("click", dondeClick);
-    pelicula.addEventListener("change", calcularPrecio);
+    pelicula.addEventListener('change', calcularPrecio);
 }
 
+//Metodos que usaremos al iniciar la pagina
 function dondeClick(event) {
     if (event.target.className == "asiento") {
         event.target.classList.add("seleccionado");
         document.getElementById("numero").innerHTML++;
         calcularPrecio();
-        almacenarAsientos()
+        almacenar();
     } else if (event.target.className == "asiento seleccionado") {
         event.target.classList.remove("seleccionado");
         document.getElementById("numero").innerHTML--;
         calcularPrecio();
-        almacenarAsientos();
+        almacenar();
     }
 }
 
@@ -39,31 +38,31 @@ function calcularPrecio() {
     localStorage.setItem("pelicula", seleccionado);
 }
 
-function almacenarAsientos() {
-    let asientos = contenedor.querySelectorAll(".asiento")
-    let asientoseleccionado = [];
+function almacenar() {
+    let asientos = contenedor.querySelectorAll(".asiento");
+    let asientoSeleccionado = [];
     for (let i = 0; i < asientos.length; i++) {
         if (asientos[i].classList.contains("seleccionado")) {
-            asientoseleccionado.push(i);
+            asientoSeleccionado.push(i);
         }
     }
-    localStorage.setItem(SELECTED, JSON.stringify(asientoseleccionado));
+    localStorage.setItem(SELECTED, JSON.stringify(asientoSeleccionado));
 }
 
 function lectura() {
-    //Asientos
-    let asientoseleccionado = JSON.parse(localStorage.getItem(SELECTED));
+    //asientos
+    let asientoSeleccionado = JSON.parse(localStorage.getItem(SELECTED));
     let asientos = contenedor.querySelectorAll(".asiento");
 
-    for (let i = 0; i < asientoseleccionado.length; i++) {
-        asientos[asientoseleccionado[i]].classList.add("seleccionado");
+    for (let i = 0; i < asientoSeleccionado.length; i++) {
+        asientos[asientoSeleccionado[i]].classList.add("seleccionado");
     }
-
     //pelicula
 
-    //Precio total y cantidad de asientos
-    let precio = localStorage.getItem("preciototal");
+    //precioTotal y cantidadAsientos
+    let precio = localStorage.getItem("precioTotal");
     document.getElementById("total").innerHTML = precio;
     let cantidad = localStorage.getItem("cantidadAsientos");
     document.getElementById("numero").innerHTML = cantidad;
+
 }
