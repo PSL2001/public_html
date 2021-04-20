@@ -6,6 +6,7 @@ const contenedor = document.getElementsByClassName("contenedor")[0];
 function iniciar() {
     document.getElementsByClassName("contenedor")[0].addEventListener("click", dondeClick);
     pelicula.addEventListener('change', calcularPrecio);
+    lectura();
 }
 
 //Metodos que usaremos al iniciar la pagina
@@ -57,7 +58,8 @@ function lectura() {
         asientos[asientoSeleccionado[i]].classList.add("seleccionado");
     }
     //pelicula
-
+    let guardada = localStorage.getItem("pelicula");
+    //pelicula.innerHTML = guardada;
     //precioTotal y cantidadAsientos
     let precio = localStorage.getItem("precioTotal");
     document.getElementById("total").innerHTML = precio;
