@@ -1,0 +1,23 @@
+{
+    "name": "usuario/pc11",
+    "description": "Ejemplo PDO",
+    "type": "project",
+    "license": "GNU/GPG",
+    "authors": [
+        {
+            "name": "Pablo Sanchez Lopez",
+            "email": "pablitosanchezlopez@gmail.com"
+        }
+    ],
+    "config" :{
+        "optimize-autoloader": true
+    },
+    "autoload":{
+        "psr-4": {
+            "Clases\\": "clases"
+        }
+    },
+    "require": {
+        "fakerphp/faker": "^1.14"
+    }
+}
