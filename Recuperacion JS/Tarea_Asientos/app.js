@@ -1,15 +1,30 @@
-let contenedores = document.getElementsByClassName("contenedor");
-
 window.onload = iniciar;
 
+const pelicula = document.getElementById("pelicula");
+
 function iniciar() {
-    contenedores[0].addEventListener("click", dondeClick);
+    document.getElementsByClassName("contenedor")[0].addEventListener("click", dondeClick);
+    pelicula.addEventListener("change", calcularPrecio);
 }
 
 function dondeClick(event) {
-
-    if (event.target.class == "asiento") {
-        event.target.class += ".seleccionado";
+    if (event.target.className == "asiento") {
+        event.target.classList.add("seleccionado");
+        document.getElementById("numero").innerHTML++;
+        calcularPrecio();
+    } else if (event.target.className == "asiento seleccionado") {
+        event.target.classList.remove("seleccionado");
+        document.getElementById("numero").innerHTML--;
+        calcularPrecio();
     }
-    console.log(event.target);
+}
+
+function calcularPrecio() {
+    let precioTotal = document.getElementById("total").innerHTML;
+    let cantidadAsientos = document.getElementById("numero").innerHTML;
+    let seleccionado = document.getElementById("pelicula").value;
+
+    precioTotal = cantidadAsientos * seleccionado;
+    document.getElementById("total").innerHTML = precioTotal;
+
 }
