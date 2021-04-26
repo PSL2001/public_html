@@ -1,5 +1,6 @@
 <?php
     namespace Clases;
+    require "../vendor/autoload.php";
     use Clases\Conexion;
     use PDO;
     use PDOException;
