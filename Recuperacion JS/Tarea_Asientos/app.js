@@ -57,9 +57,8 @@ function lectura() {
     for (let i = 0; i < asientoSeleccionado.length; i++) {
         asientos[asientoSeleccionado[i]].classList.add("seleccionado");
     }
-    //pelicula: No he conseguido sacarlo pero dejo comentado a lo que iba encaminado
-    let guardada = localStorage.getItem("pelicula");
-    //pelicula.innerHTML = guardada;
+    
+    
     //precioTotal y cantidadAsientos
     let precio = localStorage.getItem("precioTotal");
     document.getElementById("total").innerHTML = precio;
