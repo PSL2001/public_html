@@ -28,6 +28,9 @@ class Conexion{
         }
 
     }
+    /**
+     * Get the value of conexion
+     */
     public static function getConexion(){
         return self::$conexion;
     }

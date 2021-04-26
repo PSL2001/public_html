@@ -70,6 +70,24 @@ class Users extends Conexion{
                 return ($fila!=null)? true: false;
         }
         //-----------------------------------------------------------------
+        public function usuariosId() {
+                $c="select id from users";
+                $stmt = parent::$conexion->prepare($c);
+
+                try {
+                        $stmt->execute();
+                } catch (PDOException $ex) {
+                        die("Error al extraer ids de usuarios, ".$ex->getMessage());
+                }
+                $idUsers=[];
+                while ($fila=$stmt->fetch(PDO::FETCH_OBJ)) {
+                        $idUsers[]=$fila->id;
+                }
+                return $idUsers;
+        }
+        //-----------------------------------------------------------------
+        
+        //-----------------------------------------------------------------
         /**
          * Get the value of id
          */ 

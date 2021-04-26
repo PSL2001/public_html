@@ -2,7 +2,7 @@
     namespace Clases;
     require '../vendor/autoload.php';
     use Faker\Factory;
-    use Clases\Users;
+    use Clases\{Users,Tags,Post, PostTemas};
     class Datos{
         public $faker;
 
@@ -14,6 +14,9 @@
                     break;
                 case "tags":
                     $this->crearTags($cantidad);
+                    break;
+                case "post":
+                    $this->crearPost($cantidad);
             }
         }
         public function crearUsuarios($n){
@@ -39,6 +42,7 @@
             }
             $usuario=null;
         }
+        //--------------------------------------------------------------------------------------------
         public function crearTags() {
             $temas = ['Informatica', 'Anime', 'Terror', 'Programacion', 'PHP', 'Java', 'Cine', 'Videojuegos', 'Historia'];
             $tags= new Tags();
@@ -48,5 +52,34 @@
                 $tags->create();
             }
             $tags=null;
+        }
+        //--------------------------------------------------------------------------------------------------------
+        public function crearPost($n) {
+            //recupero en un array los ids de usuarios y de tags
+            $arrayUsers=(new Users())->usuariosId();
+            $arrayTags=(new Tags())->tagsId();
+            $estePost=new Post();
+            for ($i=0; $i < $n; $i++) { 
+                $estePost->setTitulo($this->faker->word());
+                $estePost->setCuerpo($this->faker->text(250));
+                $indice=rand(0, count($arrayUsers)-1);
+                $estePost->setIdUser($arrayUsers[$indice]);
+                $estePost->create();
+                //Ya hemos creado el post ahora le asociamos 
+                //un numero aleatorio de categorias
+                //1. - Recupero el id del post que acabo de crear
+                $idPost=Conexion::getConexion()->lastInsertId();
+                $cantTags=rand(1, count($arrayTags));
+                for ($j=0; $j < $cantTags; $j++) { 
+                    $postTema=new PostTemas();
+                    $postTema->setIdPost($idPost);
+                    $postTema->setIdTags($arrayTags[$j]);
+                    $postTema->create();
+                }
+                //desordenamos el array de temas
+                shuffle($arrayTags);
+            }
+            $postTema = null;
+            $estePost = null;
         }
     }

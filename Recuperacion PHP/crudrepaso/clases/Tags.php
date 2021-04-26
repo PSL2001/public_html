@@ -100,6 +100,22 @@
             $fila=$stmt->fetch(PDO::FETCH_OBJ);
             return ($fila==null) ? false : true;
         }
+        //-----------------------------------------------------------
+        public function tagsId() {
+            $c="select id from tags";
+            $stmt = parent::$conexion->prepare($c);
+
+            try {
+                    $stmt->execute();
+            } catch (PDOException $ex) {
+                    die("Error al extraer ids de tags, ".$ex->getMessage());
+            }
+            $idTags=[];
+            while ($fila=$stmt->fetch(PDO::FETCH_OBJ)) {
+                    $idTags[]=$fila->id;
+            }
+            return $idTags;
+    }
         //------------------------------------------------------------
         /**
          * Get the value of id
