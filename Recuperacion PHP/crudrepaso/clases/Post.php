@@ -33,7 +33,21 @@ class Post extends Conexion {
         }
     }
     public function read() {
+        $con = "select distinct posts.*, username, nombre, apellidos, categoria
+        from post, users, tags, poststemas where users.id=posts.idUser AND 
+        posts.id=poststemas.idPost AND poststemas.idTag=tags.id AND
+        post.id=:i";
 
+        $stmt=parent::$conexion->prepare($con);
+
+        try {
+            $stmt->execute([
+                ":i"=>$this->id
+            ]);
+        } catch (PDOException $ex) {
+            die("Error al leer el post, ".$ex->getMessage());
+        }
+        return $stmt;
     }
     public function update() {
 
@@ -41,7 +55,41 @@ class Post extends Conexion {
     public function delete() {
 
     }
+    public function borrarTodo() {
+        $con = "delete from posts";
+        $stmt = parent::$conexion->prepare($con);
 
+        try {
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            die("Error al borrar los posts ".$ex->getMessage());
+        }
+    }
+
+    public function devolverTodo(){
+        $con="select posts.*,username from posts, users 
+        where posts.idUser=users.id order by username,titulo";
+        $stmt=parent::$conexion->prepare($con);
+        try{
+            $stmt->execute();
+        }catch(PDOException $ex){
+            die("Error al devolver los posts. Mensaje:".$ex->getMessage());
+        }
+        return $stmt;
+    }
+
+    public function devolverPorCategoria() {
+        $con="select posts.*,username from posts, users, tags, poststemas
+        where post.idUser=users.id AND posts.id=postemas.idPost AND
+        tags.id=poststemas.idTag AND categoria=:c";
+        $stmt=parent::$conexion->prepare($con);
+        try{
+            $stmt->execute();
+        }catch(PDOException $ex){
+            die("Error al devolver los posts. Mensaje:".$ex->getMessage());
+        }
+        return $stmt;
+    }
     //-------------------------------------------------------------------------
 
     /**
