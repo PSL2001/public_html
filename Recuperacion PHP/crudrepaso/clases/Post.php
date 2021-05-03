@@ -52,7 +52,16 @@ class Post extends Conexion {
 
     }
     public function delete() {
+        $con = "delete from posts where id=:i";
+        $stmt = parent::$conexion->prepare($con);
 
+        try {
+            $stmt->execute([
+                ':i'=>$this->id
+            ]);
+        } catch (PDOException $ex) {
+            die("Error al borrar post ".$ex->getMessage());
+        }
     }
     public function borrarTodo() {
         $con = "delete from posts";
@@ -75,6 +84,18 @@ class Post extends Conexion {
             die("Error al devolver los posts. Mensaje:".$ex->getMessage());
         }
         return $stmt;
+    }
+    public function devolverPost(){
+        $con="select * from posts where id=:i";
+        $stmt=parent::$conexion->prepare($con);
+        try{
+            $stmt->execute([
+                ':i'=>$this->id
+            ]);
+        }catch(PDOException $ex){
+            die("Error al devolver TODOS los posts. Mensaje:".$ex->getMessage());
+        }
+        return ($stmt->fetch(PDO::FETCH_OBJ));
     }
 
     public function devolverPorCategoria() {

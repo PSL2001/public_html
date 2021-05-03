@@ -49,7 +49,7 @@ $fila1 = $datos->fetch(PDO::FETCH_OBJ);
                 <a href="postscategoria?cat=<?php echo $fila1->categoria ?>" class="card-link"><?php echo "#".$fila1->categoria; ?></a>
                 <?php
                     while ($fila = $datos->fetch(PDO::FETCH_OBJ)) {
-                        echo "<a href='postcategoria.php?cat={$fila->categoria}' class='card-link'>#{$fila->categoria}></a>";
+                        echo "<a href='postcategoria.php?cat={$fila->categoria}' class='card-link'>#{$fila->categoria}</a>";
                     }
                 ?>
             </div>

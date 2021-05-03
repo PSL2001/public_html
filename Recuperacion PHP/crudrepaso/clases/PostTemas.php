@@ -37,6 +37,34 @@ class PostTemas extends Conexion {
 
     }
 
+    public function borrarTodo() {
+        $con = "delete from poststemas";
+        $stmt = parent::$conexion->prepare($con);
+
+        try {
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            die("Error al borrar los posttemas, ".$ex->getMessage());
+        }
+    }
+
+    public function tagPorpost($ip) {
+        $con = "select idTag from poststemas where idPost = :i";
+        $stmt = parent::$conexion->prepare($con);
+
+        try {
+            $stmt->execute([
+                ':i'=>$ip
+            ]);
+        } catch (PDOException $ex) {
+            die("Error al obtener los posttemas por tag, ".$ex->getMessage());
+        }
+        $cat=[];
+        while ($fila=$stmt->fetch(PDO::FETCH_OBJ)) {
+            $cat[] = $fila->idTag;
+        }
+        return $cat;
+    }
 
     //----------------------------------------------------------------------------------
     /**

@@ -75,7 +75,7 @@
         }
 
         public function devolverTodo() {
-            $con = "select * from tags";
+            $con = "select * from tags order by categoria";
             $stmt=parent::$conexion->prepare($con);
 
             try {
