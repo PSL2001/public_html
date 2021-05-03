@@ -33,16 +33,15 @@ class Post extends Conexion {
         }
     }
     public function read() {
-        $con = "select distinct posts.*, username, nombre, apellidos, categoria
-        from post, users, tags, poststemas where users.id=posts.idUser AND 
-        posts.id=poststemas.idPost AND poststemas.idTag=tags.id AND
-        post.id=:i";
+        $con = "select distinct posts.*, tags.*, users.* from posts, users, tags, poststemas  
+        where posts.id=:ip AND posts.idUser=users.id AND posts.id=poststemas.idPost AND 
+        tags.id=poststemas.idTag";
 
         $stmt=parent::$conexion->prepare($con);
 
         try {
             $stmt->execute([
-                ":i"=>$this->id
+                ':ip'=>$this->id
             ]);
         } catch (PDOException $ex) {
             die("Error al leer el post, ".$ex->getMessage());

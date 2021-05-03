@@ -16,6 +16,7 @@ require '../vendor/autoload.php';
 
 $cat = $_GET['cat'];
 $estePost = new Post();
+$datos = $estePost->devolverPorCategoria();
 $datos=$estePost->read();
 $fila1 = $datos->fetch(PDO::FETCH_OBJ);
 ?>
