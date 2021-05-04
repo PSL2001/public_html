@@ -109,20 +109,35 @@ class Post extends Conexion {
         return ($stmt->fetch(PDO::FETCH_OBJ));
     }
 
-    public function devolverPorCategoria() {
+    public function devolverPorCategoria($cat) {
         $con="select posts.*,username from posts, users, tags, poststemas
-        where post.idUser=users.id AND posts.id=postemas.idPost AND
+        where posts.idUser=users.id AND posts.id=poststemas.idPost AND
         tags.id=poststemas.idTag AND categoria=:c";
         $stmt=parent::$conexion->prepare($con);
         try{
-            $stmt->execute();
+            $stmt->execute([
+                ':c'=>$cat
+            ]);
         }catch(PDOException $ex){
-            die("Error al devolver los posts. Mensaje:".$ex->getMessage());
+            die("Error al devolver los posts por categoria. Mensaje:".$ex->getMessage());
         }
         return $stmt;
     }
     //-------------------------------------------------------------------------
-
+    public function devolverPorUsuario($un) {
+        $con="select posts.*,username from posts, users, tags, poststemas
+        where posts.idUser=users.id AND posts.id=poststemas.idPost AND
+        tags.id=poststemas.idTag AND username=:u";
+        $stmt=parent::$conexion->prepare($con);
+        try{
+            $stmt->execute([
+                ':u'=>$un
+            ]);
+        }catch(PDOException $ex){
+            die("Error al devolver los posts por Usuario. Mensaje:".$ex->getMessage());
+        }
+        return $stmt;
+    }
     /**
      * Get the value of id
      */ 

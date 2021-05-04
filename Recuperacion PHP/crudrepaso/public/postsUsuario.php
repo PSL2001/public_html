@@ -2,12 +2,17 @@
 session_start();
 if (!isset($_SESSION['username'])) {
     header("Location:login.php");
+    die();
+}
+if (!isset($_GET['un'])) {
+    header("location:post.php");
+    die();
 }
 require '../vendor/autoload.php';
 
 use Clases\Post;
 $misPosts = new Post();
-$datos = $misPosts->devolverTodo();
+$datos = $misPosts->devolverPorUsuario($_GET['un']);
 $misPosts = null;
 
 ?>
