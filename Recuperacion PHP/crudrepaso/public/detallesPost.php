@@ -43,7 +43,9 @@ $fila1 = $datos->fetch(PDO::FETCH_OBJ);
         <div class="card m-auto" style="width: 54rem;">
             <div class="card-body">
                 <h5 class="card-title text-center"><?php echo $fila1->titulo; ?></h5>
-                <h6 class="card-subtitle mb-2 text-muted"><b>Autor: </b><?php echo $fila1->username." {{$fila1->apellidos}, {$fila1->nombre}}" ?></h6>
+                <h6 class="card-subtitle mb-2 text-muted"><b>Autor: </b>
+                <?php echo "<a href=postsUsuario.php?un={$fila1->username}>{$fila1->username}</a>"." {{$fila1->apellidos}, {$fila1->nombre}}" ?>
+                </h6>
                 <p class="card-text"><?php echo $fila1->cuerpo; ?></p>
                 <p class="mt-2"><b>Fecha Creacion: </b> <?php echo $fila1->fecha; ?></p>
                 <a href="postscategoria?cat=<?php echo $fila1->categoria ?>" class="card-link"><?php echo "#".$fila1->categoria; ?></a>
