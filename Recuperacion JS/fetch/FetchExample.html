@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="" alt="" width="500px">
+    <script>
+         let imagen = document.querySelector("img");
+        // fetch("https://pokeapi.co/api/v2/pokemon/charizard")
+        //     .then(respuesta => respuesta.json())
+        //     .then(datos => {
+        //         console.log("Las habilidades de mi bicho son: ");
+        //         datos.abilities.forEach(item => {
+        //             console.log("Nombre de Habilidad = " + item.ability.name);
+        //         });
+        //         imagen.src = datos.sprites.versions["generation-v"]["black-white"].animated.front_shiny;
+        //     });
+
+        let httpRequest = new XMLHttpRequest();
+
+        httpRequest.onload = procesarRepuesta;
+        httpRequest.onerror = procesarError;
+
+        httpRequest.open("GET", 'https://pokeapi.co/api/v2/pokemon/charizard', true);
+        httpRequest.send(null);
+
+        function procesarRepuesta() {
+            var respuesta = httpRequest.responseText;
+
+            let datos = JSON.parse(respuesta);
+
+            imagen.src = datos.sprites.versions["generation-v"]["black-white"].animated.front_shiny;
+        }
+
+        function procesarError() {
+            console.log("La cagaste master");
+        }
+    </script>
+</body>
+
+</html>
