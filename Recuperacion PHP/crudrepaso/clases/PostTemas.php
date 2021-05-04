@@ -65,6 +65,19 @@ class PostTemas extends Conexion {
         }
         return $cat;
     }
+    //-------------------------------------------------------------------------------
+    public function resetearCategorias() {
+        $con = "delete from poststemas where idPost=:ip";
+        $stmt=parent::$conexion->prepare($con);
+
+        try {
+            $stmt->execute([
+                ':ip'=>$this->idPost
+            ]);
+        } catch (PDOException $ex) {
+            die("Error al borrar los tags, ".$ex->getMessage());
+        }
+    }
 
     //----------------------------------------------------------------------------------
     /**

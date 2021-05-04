@@ -31,6 +31,13 @@
             $pass=hash('sha256', "secret0");
             $usuario->setPass($pass);
             $usuario->create();
+            $usuario->setNombre("Manolita");
+            $usuario->setApellidos("La crack del barrio");
+            $usuario->setUsername("manoli21");
+            $usuario->setMail("manoli@mail.com");
+            $pass=hash('sha256', "secret0");
+            $usuario->setPass($pass);
+            $usuario->create();
             //Creamos el resto
             for ($i=0; $i < $n-1; $i++) { 
                 $usuario->setNombre($this->faker->firstName());

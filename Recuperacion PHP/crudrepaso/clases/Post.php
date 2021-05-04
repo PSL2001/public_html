@@ -49,7 +49,18 @@ class Post extends Conexion {
         return $stmt;
     }
     public function update() {
+        $con = "update posts set titulo=:t, cuerpo=:c where id=:i";
+        $stmt = parent::$conexion->prepare($con);
 
+        try {
+            $stmt->execute([
+                ':t'=>$this->titulo,
+                ':c'=>$this->cuerpo,
+                ':i'=>$this->id
+            ]);
+        } catch (PDOException $ex) {
+            die("Error al actualizar el post: ".$ex->getMessage());
+        }
     }
     public function delete() {
         $con = "delete from posts where id=:i";

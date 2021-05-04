@@ -26,45 +26,42 @@
     $datos=$estePost->devolverPost();
 
     function errores($texto) {
+        global $idPost;
         $_SESSION['mensaje'] = $texto;
-        header("Location:{$_SERVER['PHP_SELF']}");
+        header("Location:{$_SERVER['PHP_SELF']}?id=$idPost");
         die();
     }
 
-    if (isset($_POST['crear'])) {
-        //1.- Recupero el Id del usuario con el que estamos logueados a partir de su nombre
-        $usuario = new Users();
-        $idU = $usuario->devolverIdUser($_SESSION['username']);
-        $usuario = null;
-        //2. - Recupero y limpio titulo y cuerpo
+    if (isset($_POST['editar'])) {
+        //1. - Recupero y limpio titulo y cuerpo
         $titulo = ucwords(trim($_POST['titulo']));
         $contenido = ucfirst(trim($_POST['cuerpo']));
         if (strlen($titulo)==0 || strlen($contenido)==0) {
             errores("Rellena titulo y contenido");
         }
-        //3. - Compruebo que al menos he elegido una categoria
+        //2. - Compruebo que al menos he elegido una categoria
         if (!is_array($_POST['categorias'])) {
             errores("Selecciona al menos 1 categoria");
         }
-        //4. - Guardamos el post (tit, cuerpo, idU)
-        $nuevoPost = new Post();
-        $nuevoPost->setTitulo($titulo);
-        $nuevoPost->setCuerpo($contenido);
-        $nuevoPost->setIdUser($idU);
-        $nuevoPost->create();
-        //5. - Ahora con el post creado le iremos añadiendo las etiquetas
+        //3. - Guardamos el post (tit, cuerpo, idPost)
+        $estePost = new Post();
+        $estePost->setTitulo($titulo);
+        $estePost->setCuerpo($contenido);
+        $estePost->setId($idPost);
+        $estePost->update();
+        //4. - Ahora con el post actualizado le borramos sus etiquetas y le añadimos las seleccionadas
         // Seleccionadas (al menos hemos obligado a que haya 1)
-        $id_Post = Conexion::getConexion()->lastInsertId();
         // recorremos las categorias seleccionadas
         $pt = new PostTemas();
-        $pt->setIdPost($id_Post);
+        $pt->setIdPost($idPost);
+        $pt->resetearCategorias();
         foreach ($_POST['categorias'] as $item => $value) {
             $pt->setIdTags($value);
             $pt->create();
         }
-        $nuevoPost= null;
+        $estePost= null;
         $pt = null;
-        $_SESSION['mensaje'] = "Post creado con exito";
+        $_SESSION['mensaje'] = "Post actualizado con exito";
         header("Location:post.php");
     } else {
         # pintamos el form
@@ -86,12 +83,12 @@
 <?php
     require 'resources/navbar.php';
 ?>
-    <h3 class="text-center mt-3">Crear Post</h3>
+    <h3 class="text-center mt-3">Editar Post</h3>
     <div class="container mt-3">
     <?php
         require 'resources/mensajes.php';
     ?>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form action="<?php echo $_SERVER['PHP_SELF']."?id=$idPost"; ?>" method="post">
     <div class="mt-2">
         <input type="text" name="titulo" value="<?php echo $datos->titulo; ?>" required>
     </div>
@@ -115,7 +112,7 @@
     </ul>
     </div>
     <div class="mt-2">
-        <input type="submit" name="crear" value="Crear" class="btn btn-success mr-2">
+        <input type="submit" name="editar" value="Editar" class="btn btn-success mr-2">
         <input type="reset" value="Limpiar" class="btn btn-warning mr-2">
         <a href="post.php" class="btn btn-primary">Volver</a>
     </div>
