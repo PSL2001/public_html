@@ -1,83 +1,97 @@
-window.onload = iniciar;
+window.onload=iniciar;
 
+const boton=document.getElementById("anadir");
 
-
-const boton = document.getElementById("anadir");
-
-function iniciar() {
-    boton.addEventListener("click", calcular);
-    
+function iniciar(){
+    boton.addEventListener("click",anadir);
 }
 
-function calcular() {
-    //Variables de lectura
-    let texto = document.getElementById("texto").value;
-    let cantidad = parseInt(document.getElementById("cantidad").value);
-    //Variables de escritura
-    let balance =parseInt(document.getElementById("balance").textContent);
-    let dineroPos =parseInt(document.getElementById("dinero-positivo").textContent);
-    let dineroNeg = parseInt(document.getElementById("dinero-negativo").textContent);
+function anadir(){
+    //Leemos los datos
+    let texto=document.getElementById("texto").value;
+    let cantidad=parseInt(document.getElementById("cantidad").value);
+
+    //Escribimos los datos
+    let balance=parseInt(document.getElementById("balance").textContent);
+    let positivo=parseInt(document.getElementById("dinero-positivo").textContent);
+    let negativo=parseInt(document.getElementById("dinero-negativo").textContent);
+    //Boolean que dirá si es positivo o negativo
+    let interrup=false;
     
-    let interruptor = false;
-    //ejecucion
-    if (texto <= 0 ) {
-        alert("El campo de texto esta vacio o debe de ser un valor identificativo (texto)");
-    } else if (cantidad == 0) {
-        alert("La cantidad debe de ser menor o mayor a 0");
-    }else {
-        //Si nada de lo anterior ocurre tratamos los datos
-        if (cantidad > 0) {
-            interruptor = true;
-            let suma = balance + cantidad;
-            let sumaPos = dineroPos + cantidad; 
+
+    if(texto<=0){
+        alert("El campo de texto está vacío");
+    }else if(cantidad == 0){
+        alert("Debe incluir algún valor");
+    }else{
+        //Si no pasa nada de lo anterior tratamos los datos
+        if(cantidad >0){
+            let suma= balance + cantidad;
+            let sumaPositivo = positivo + cantidad;
             document.getElementById("balance").textContent = `${suma}€`;
-            document.getElementById("dinero-positivo").textContent = `+${sumaPos}€`
-            //Ya hemos tratado los valores ahora hay que añadirlos a la lista
-            pintarLista(interruptor, texto, cantidad);
-            document.getElementsByClassName("eliminar-btn")[0].addEventListener("click", borrar);
-
-        } else {
-            let resta = balance + cantidad;
-            let restaNega = dineroNeg + cantidad;
+            document.getElementById("dinero-positivo").textContent = `${sumaPositivo}€`;
+            interrup= true;
+            pintarEnLista(interrup, texto, cantidad);
+        }else{
+            let resta= balance + cantidad;
+            let restaNegativo = negativo + cantidad;
             document.getElementById("balance").textContent = `${resta}€`;
-            document.getElementById("dinero-negativo").textContent = `${restaNega}€`;
-            //Ya hemos tratado los valores ahora hay que añadirlos a la lista
-            pintarLista(interruptor, texto, cantidad);
-            document.getElementsByClassName("eliminar-btn")[0].addEventListener("click", borrar);
+            document.getElementById("dinero-negativo").textContent = `${restaNegativo}€`;
+            interrup= false;
+            pintarEnLista(interrup, texto, cantidad);
         }
+        for(let i=0;i<document.querySelectorAll('#lista .eliminar-btn').length;i++){
+            document.querySelectorAll('#lista .eliminar-btn')[i].addEventListener("click",eliminar);
+        }    
     }
-}//Fin del añadir
-
-function pintarLista(interruptor, nombre, cantidad) {
-    let lista = document.getElementById("lista");
-
-    let li = document.createElement("li");
-    let span = document.createElement("span");
-    let button = document.createElement("button");
-    if (interruptor == true) {
-        li.setAttribute("class", "positivo");
-    } else {
-        li.setAttribute("class", "negativo");
-    }
-    li.innerHTML = nombre;
-    lista.appendChild(li);
-
-    span.innerHTML = `${cantidad}€`
-    li.appendChild(span);
-
-    button.setAttribute("class", "eliminar-btn");
-    button.innerHTML = "X";
-    li.appendChild(button);
-
 }
 
-function borrar(event) {
-    let lista = document.getElementById("lista");
-    let padre = event.target.parentNode;
-    let cantidad = parseInt(padre.getElementsByTagName("span")[0].textContent)
-    console.log(cantidad);
-    
+function pintarEnLista(interruptor,texto,cantidad){
+    let lista=document.getElementById("lista");
+    let li=document.createElement("li");
+    let span=document.createElement("span");
+    let button=document.createElement("button");
+    //Referencia al li
+    if(interruptor==true){
+        li.setAttribute("class","positivo");
+    }else{
+        li.setAttribute("class","negativo");
+    }
+    li.innerHTML = texto;
+    lista.appendChild(li);
+    //Referencia al span
+    span.innerHTML=`${cantidad}€`;
+    li.appendChild(span);
+    //Boton
+    button.setAttribute("class","eliminar-btn");
+    button.innerHTML="X";
+    li.appendChild(button);
+}
 
-    //Por Ultimo borramos el elemento
+function eliminar(event){
+    let nodoPapiChulo=event.target.parentNode;
+    let cantidad=parseInt(nodoPapiChulo.getElementsByTagName("span")[0].textContent);
+
+    let balance=parseInt(document.getElementById("balance").textContent);
+    let positivo=parseInt(document.getElementById("dinero-positivo").textContent);
+    let negativo=parseInt(document.getElementById("dinero-negativo").textContent);
+
+    //Ejecucion
+    if(cantidad>0){
+        interruptor=true;
+        let suma=balance-cantidad;
+        let sumaPositivo=positivo-cantidad;
+        document.getElementById("balance").textContent=`${suma}€`;
+        document.getElementById("dinero-positivo").textContent=`+${sumaPositivo}€`;
+    }else{
+        let resta=balance-cantidad;
+        let restaNegativo=negativo-cantidad;
+        document.getElementById("balance").textContent=`${resta}€`;
+        document.getElementById("dinero-negativo").textContent=`${restaNegativo}€`;
+
+    }
+    //Por ultimo removemos el nodo
+    let lista=document.getElementById("lista");
+
     lista.removeChild(event.target.parentNode);
 }
