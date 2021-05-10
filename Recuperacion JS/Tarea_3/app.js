@@ -21,7 +21,7 @@ function anadir(){
 
     if(texto<=0){
         alert("El campo de texto está vacío");
-    }else if(cantidad == 0){
+    }else if(isNaN(cantidad)){
         alert("Debe incluir algún valor");
     }else{
         //Si no pasa nada de lo anterior tratamos los datos
