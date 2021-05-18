@@ -8,9 +8,12 @@
 </head>
 <body>
     <img id="foto">
-    <img id="fotoRick">
+    <img id="foto2">
 </body>
 <script src="fetch.js"></script>
+<script src="xmlHttp.js">
+    
+</script>
 <script>
     //Callbacks (no funcionan)
     // let imagen = document.getElementById("foto");
@@ -25,13 +28,20 @@
     //     imagenRick.src = result[0].images
     // }
 
-    //Set timeouts
-    function llamadaServidor(numseg) {
-        setTimeout( function () {
-            console.log("Llamada del servidor en " +numseg + " segundos");
-        }, numseg)
-    }
+    let imagen = document.getElementById("foto");
+    obtenDatosGen();
 
-    llamadaServidor(3000);
+    let imagen2 = document.getElementById("foto2")
+    let perro = httpGet("https://dog.ceo/api/breeds/image/random");
+    perro.then(datos => { imagen2.src = datos.message })
+
+    //Set timeouts
+    // function llamadaServidor(numseg) {
+    //     setTimeout( function () {
+    //         console.log("Llamada del servidor en " +numseg + " segundos");
+    //     }, numseg)
+    // }
+
+    // llamadaServidor(3000);
 </script>
 </html>

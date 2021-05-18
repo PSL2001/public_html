@@ -2,8 +2,8 @@
 //
 
 
-function obtenDatosGen(url, callback) {
-    fetch(url)
+function obtenDatosGen(callback) {
+    fetch("https://dog.ceo/api/breeds/image/random")
     .then(response => response.json())
-    .then(datos => { callback(datos); })
+    .then(datos => { imagen.src = datos.message })
 }
