@@ -14,13 +14,3 @@ function httpGet(url) {
     }); 
 }
 
-function random() {
-    var promesa = httpGet("https://dog.ceo/api/breeds/image/random")
-    promesa.then( (res) => {
-        JSON.parse(res);
-        var url = res.message;
-        var image = document.getElementById("foto2");
-        image.src = url
-    })
-    promesa.catch( (error) => {console.log(error);})
-}

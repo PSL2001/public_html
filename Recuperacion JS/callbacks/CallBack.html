@@ -31,9 +31,19 @@
     let imagen = document.getElementById("foto");
     obtenDatosGen();
 
-    let imagen2 = document.getElementById("foto2")
-    let perro = httpGet("https://dog.ceo/api/breeds/image/random");
-    perro.then(datos => { imagen2.src = datos.message })
+    
+    function random() {
+    var promesa = httpGet("https://dog.ceo/api/breeds/image/random")
+    promesa.then( (res) => {
+        let datos = JSON.parse(res);
+        var url = datos.message;
+        var image = document.getElementById("foto2");
+        image.src = url
+    })
+    promesa.catch( (error) => {console.log(error);})
+    }
+
+    random();
 
     //Set timeouts
     // function llamadaServidor(numseg) {
