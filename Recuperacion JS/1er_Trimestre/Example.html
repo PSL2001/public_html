@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Coordenada {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+            esIgual() {
+            if (this.x == coordenada.x && this.y == coordenada.y) {
+                return true;
+            }
+            return false;
+            }
+
+            
+        }
+
+
+
+        class Punto extends Coordenada {
+            constructor(x, y, col) {
+                super(x,y);
+                this.color = col;
+            }
+
+            pintame() {
+                console.log("Coordenada x: " + this.x + "Coordenada y " + this.y);
+                console.log();
+            }
+        }
+        
+
+
+
+        let coordenada1 = new Coordenada(2, 3);
+        console.log("Coordenada x: " + coordenada1.x);
+        console.log("Coordenada y: " + coordenada1.y);
+    </script>
+</body>
+
+</html>

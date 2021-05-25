@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function promiseCall(waitSecond, returnData) 
+        {
+            return new Promise( function (resolve, reject) {
+                //Tarea requiere asincronía:
+                setTimeout( function() { resolve(returnData); }, waitSecond );
+            });
+        };
+
+        let p1 = promiseCall(2000, "Soy promesa 1");
+        let p2 = promiseCall(1000, "Soy promesa 2");
+        let p3 = promiseCall(3000, "Soy promesa 3");
+        let p4 = promiseCall(4000, "Soy promesa 4");
+
+        // Consumiendo Promise 1 - 4 in Promise.all()
+        Promise.all([p1, p2, p3, p4]).then(function (value) {
+                console.log(value);  //value es un array con todos los resultados.
+            }
+        ).catch ( function (reason) {
+            // Not Called
+            console.log(reason);
+        });
+
+    </script>
+</body>
+</html>
