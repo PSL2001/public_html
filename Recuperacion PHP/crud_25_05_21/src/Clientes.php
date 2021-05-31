@@ -37,6 +37,35 @@ class Clientes extends Conexion {
             # code...
         }
         //----------------------------------------------------
+        public function getTodos()
+        {
+            $c = "select * from clientes order by apellidos";
+            $stmt = parent::$conexion->prepare($c);
+
+            try {
+                $stmt->execute();
+            } catch (PDOException $ex) {
+                die("Error al devolver clientes, ".$ex->getMessage());
+            }
+            return $stmt;
+        }
+
+        public function existeEmail($m)
+        {
+            $c = "select * from clientes where email=:m";
+            $stmt = parent::$conexion->prepare($c);
+
+            try {
+                $stmt->execute([
+                    ':m'=>$m
+                ]);
+            } catch (PDOException $ex) {
+                die("No se que has hecho pero ha petado");
+            }
+            $fila = $stmt->fetch(PDO::FETCH_OBJ);
+            return ($fila) ? true: false;
+        }
+        //----------------------------------------------------
 
         /**
          * Get the value of id
