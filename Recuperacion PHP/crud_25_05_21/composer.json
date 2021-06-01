@@ -1,0 +1,23 @@
+{
+    "name": "usuario/crud_25_05_21",
+    "description": "repaso PDO",
+    "type": "project",
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "PSL2001",
+            "email": "pablitosanchezlopez@gmail.com"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Clases\\": "src"
+        }
+    },
+    "require": {
+        "fakerphp/faker": "^1.14"
+    }
+}
