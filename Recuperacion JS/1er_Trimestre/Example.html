@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
     <script>
-        class Coordenada {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-            }
-            esIgual() {
-            if (this.x == coordenada.x && this.y == coordenada.y) {
+
+    class Coordenada {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        esIgual() {
+            if (this.x == this.y ) {
                 return true;
             }
-            return false;
-            }
-
-            
+            else
+                return false;
         }
 
-
-
-        class Punto extends Coordenada {
-            constructor(x, y, col) {
-                super(x,y);
-                this.color = col;
-            }
-
-            pintame() {
-                console.log("Coordenada x: " + this.x + "Coordenada y " + this.y);
-                console.log();
-            }
+        toString() {
+            return "X: "+ this.x + " -- Y: "+ this.y;
         }
-        
+    }
 
+    let coord1 = new Coordenada(3,3)
+    console.log("Coordenada x:" + coord1.x);
+    console.log("Coordenada y:" + coord1.y);
+    console.log("Son iguales la x y la y??? " + coord1.esIgual());
 
+    class Punto extends Coordenada {
+        constructor(x, y, color){
+            super(x, y);
+            this.color = color;
+        }
 
-        let coordenada1 = new Coordenada(2, 3);
-        console.log("Coordenada x: " + coordenada1.x);
-        console.log("Coordenada y: " + coordenada1.y);
-    </script>
-</body>
+        pintame(){
+            console.log("Coordenada x: " + this.x + " -- Coordenada y:" + this.y);
+            console.log("Es igual??? " + super.esIgual())
+        }
 
-</html>
+        toString(){
+            return super.toString() + " -- Color: " + this.color;  
+        }
+    }
+
+    console.log("----------------------------")
+    let puntito = new Punto(6,5,"rojo");
+    puntito.pintame();
+    console.log(puntito.toString());
