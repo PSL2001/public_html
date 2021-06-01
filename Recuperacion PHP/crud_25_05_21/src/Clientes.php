@@ -27,14 +27,45 @@ class Clientes extends Conexion {
                 die("Error al insertar en clientes: " .$ex->getMessage());
             }
         }
-        public function read() {
-            # code...
+        public function read($id) {
+            $c = "select * from clientes where id = :i";
+            $stmt=parent::$conexion->prepare($c);
+            try {
+                $stmt->execute([
+                    ':i'=>$id,
+                ]);
+            } catch (PDOException $ex) {
+                die("Error al recuperar los clientes, ".$ex->getMessage());
+            }
+            $fila = $stmt->fetch(PDO::FETCH_OBJ);
+            return $fila;
         }
         public function update() {
-            # code...
+            $u = "update clientes set nombre=:n, apellidos=:a, email=:m where id=:i";
+            $stmt = parent::$conexion->prepare($u);
+
+            try {
+                $stmt->execute([
+                    ':a'=>$this->apellidos,
+                    ':n'=>$this->nombre,
+                    ':m'=>$this->email,
+                    ':i'=>$this->id
+                ]);
+            } catch (PDOException $ex) {
+                die("Error al actualizar en clientes: " .$ex->getMessage());
+            }
         }
         public function delete() {
-            # code...
+            $c = "delete from clientes where id=:i";
+            $stmt = parent::$conexion->prepare($c);
+
+            try {
+                $stmt->execute([
+                    ':i'=>$this->id
+                ]);
+            } catch (PDOException $ex) {
+                die("Error al borrar el cliente, ".$ex->getMessage());
+            }
         }
         //----------------------------------------------------
         public function getTodos()
@@ -58,6 +89,23 @@ class Clientes extends Conexion {
             try {
                 $stmt->execute([
                     ':m'=>$m
+                ]);
+            } catch (PDOException $ex) {
+                die("No se que has hecho pero ha petado");
+            }
+            $fila = $stmt->fetch(PDO::FETCH_OBJ);
+            return ($fila) ? true: false;
+        }
+        //--------------------------------------------------
+        public function existeEmailU($m, $id)
+        {
+            $c = "select * from clientes where email=:m AND id!=:i";
+            $stmt = parent::$conexion->prepare($c);
+
+            try {
+                $stmt->execute([
+                    ':m'=>$m,
+                    ':i'=>$id
                 ]);
             } catch (PDOException $ex) {
                 die("No se que has hecho pero ha petado");

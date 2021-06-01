@@ -2,26 +2,30 @@
 session_start();
 require_once dirname(__DIR__, 2) . "/vendor/autoload.php";
 
-use Clases\Clientes;
+use Clases\Hoteles;
 
-$cli = new Clientes();
-$todos = $cli->getTodos();
-$cli = null;
+$hotel = new Hoteles();
+$todos = $hotel->getTodos();
+$hotel = null;
 
 require dirname(__DIR__, 2) . "/plantillas/cabecera.php";
 ?>
-<h3 class="text-center mt-2">Clientes registrados</h3>
+<h3 class="text-center mt-2">Hoteles disponibles</h3>
 <?php
      require dirname(__DIR__, 2) . "/plantillas/mensajes.php";
 ?>
 <div class="container mt-3">
+<?php
+     require dirname(__DIR__, 2) . "/plantillas/mensajes.php";
+?>
     <a href="create.php" class="btn btn-success mb-2"><i class="fas fa-plus"></i> Nuevo</a>
     <table class="table table-dark table-striped" id="tabCliente">
         <thead>
             <tr>
                 <th scope="col">Codigo</th>
-                <th scope="col">Apellidos, nombre</th>
-                <th scope="col">Email</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Localidad</th>
+                <th scope="col">Direccion</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -31,8 +35,9 @@ require dirname(__DIR__, 2) . "/plantillas/cabecera.php";
                  echo <<< TEXTO
                  <tr>
                  <th scope="row">{$fila->id}</th>
-                 <td>{$fila->apellidos}, {$fila->nombre}</td>
-                 <td>{$fila->email}</td>
+                 <td>{$fila->nombre}</td>
+                 <td>{$fila->localidad}</td>
+                 <td>{$fila->direccion}</td>
                  <td>
                     <form name="as" action="borrar.php" method="POST" class="form form-inline">
                     <a href="update.php?id={$fila->id}" class="btn btn-secondary"><i class="fas fa-edit"></i> Editar</a>
