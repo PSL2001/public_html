@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Ejercicio 1.4
+        class Persona {
+            constructor(nombre, apellido, edad) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.edad = edad;
+            }
+            toString() {
+                console.log("Nombre " + this.nombre + " Apellidos " + this.apellido + " Edad " + this.edad);   
+            } 
+        }
+        class Medico extends Persona {
+            constructor(nombre, apellido, edad, especialidad, aniosExper) {
+                super(nombre,apellido,edad);
+                this.especialidad = especialidad;
+                this.aniosExper = aniosExper;
+            }
+            toString() {
+                console.log(super.toString() + " Especialidad " + this.especialidad + " Anios de Experiencia " + this.aniosExper); 
+            }
+
+            set especialidad (value) {
+                if (value == "" || value == null) {
+                    return console.log("La especialidad no puede estar vacia");
+                } else {
+                    this._especialidad = value;
+                }
+            }
+
+            get especialidad () {
+                return this._especialidad;
+            }
+
+            set aniosExper (value) {
+                if (value == "" || value == null) {
+                    return console.log("El campo no es un numero");
+                } else {
+                    this._aniosExper = value;
+                }
+            }
+            
+            get aniosExper () {
+                return this._aniosExper;
+            }
+        }
+
+        let paco = new Medico("Paco","Ramirez Gimenez", 34,"Medico de cabecera", null);
+        let paco2 = new Medico("Juan", "martinez", 14, null, 2);
+        
+
+    </script>
+</body>
+</html>

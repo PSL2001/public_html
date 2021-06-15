@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Ejercicio 1
+        class Persona {
+            constructor(nombre, apellido, edad) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.edad = edad;
+            }
+            toString() {
+                console.log("Nombre " + this.nombre + " Apellidos " + this.apellido + " Edad " + this.edad);   
+            } 
+        }
+        class Medico extends Persona {
+            constructor(nombre, apellido, edad, especialidad, aniosExper) {
+                super(nombre,apellido,edad);
+                this.especialidad = especialidad;
+                this.aniosExper = aniosExper;
+            }
+            toString() {
+                console.log(super.toString() + " Especialidad " + this.especialidad + " Anios de Experiencia " + this.aniosExper); 
+            }  
+        }
+
+        let manolo = new Persona("Manolo", "Rodriguez Jimenez", 23);
+        manolo.toString();
+        let paco = new Medico("Paco","Ramirez Gimenez", 34,"Medico de cabecera",12);
+        paco.toString();
+    </script>
+</body>
+</html>
