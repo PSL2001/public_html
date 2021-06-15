@@ -1,0 +1,51 @@
+<!-- El ejercicio se mostrará en consola -->
+<!-- Se ha intentado anidar -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <script>
+        var httpRequest = new XMLHttpRequest();
+
+        function obtenerDatosTriangulos(url, callback) {
+            httpRequest.onload = () => {
+                var respuesta = JSON.parse(httpRequest.responseText);
+                console.log(respuesta);
+                for (var x = 0; x < respuesta.triangulos.length; x++) {
+                    callback(respuesta.triangulos[x], formatearTexto);
+                }
+            };
+
+            httpRequest.open('GET', url, true);
+            httpRequest.overrideMimeType('text/plain');
+            httpRequest.send(null);
+        }
+
+        function calcularHipotenusa(triangulo, callback) {
+            setTimeout(function () {
+                triangulo.hipotenusa = Math.hypot(triangulo.catetos[0], triangulo.catetos[1]);
+                callback(triangulo);
+            }, 2000);
+        }
+
+        function formatearTexto(triangulo) {
+            console.log();
+            setTimeout(function () {
+                //Texto que se muestra en la consola
+                let cadena = "Cateto 1 = " + triangulo.catetos[0] + "\n";
+                cadena += "Cateto 2 = " + triangulo.catetos[1] + "\n";
+                cadena += "Hipotenusa = " + triangulo.hipotenusa + "\n";
+                cadena += "Nombre = " + triangulo.nombre + "\n";
+                console.log(cadena);
+            }, 2000);
+        }
+
+        //Muestro los datos
+        obtenerDatosTriangulos("datosTriangulo.json", calcularHipotenusa);
+    </script>
+</body>
+</html>
